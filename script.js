@@ -95,8 +95,13 @@ updateDots();
 const peopleContainer = select('#people');
 
 function selectPerson(index) {
+	const safeIndex = Math.min(
+		Math.max(Number(index) || 0, 0),
+		Math.max(peopleContainer.children.length - 1, 0)
+	);
+
 	[...peopleContainer.children].forEach((personButton, buttonIndex) => {
-		personButton.classList.toggle('on', buttonIndex === index);
+		personButton.classList.toggle('on', buttonIndex === safeIndex);
 	});
 }
 
@@ -105,4 +110,4 @@ peopleContainer.onclick = (event) => {
 	if (personButton) selectPerson(Number(personButton.dataset.i));
 };
 
-selectPerson(1);
+selectPerson(0);
